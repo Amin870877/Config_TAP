@@ -34,6 +34,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding-bottom: 75px; /* فضای خالی برای اینکه منوی پایینی روی محتوا نیفتد */
         }
 
         /* هدر نئونی نمایش موجودی حساب */
@@ -75,7 +76,8 @@
             flex-direction: column;
             align-items: center;
             padding: 15px;
-            overflow-y: auto;
+            overflow-y: auto; /* فعال کردن اسکرول برای صفحات طولانی مثل فروشگاه */
+            width: 100%;
         }
         .page-content.active { display: flex; }
 
@@ -164,8 +166,20 @@
         .upgrade-btn { background: linear-gradient(135deg, #00f0ff 0%, #0077aa 100%); border: none; color: #000; padding: 10px 16px; border-radius: 10px; font-weight: bold; font-size: 13px; cursor: pointer; }
         .upgrade-btn:disabled { background: #222630; color: #555; cursor: not-allowed; }
 
-        /* منوی ناوبری پایینی ثابت */
-        .bottom-nav { background: rgba(6, 7, 12, 0.98); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-around; padding: 12px 0; backdrop-filter: blur(10px); }
+        /* منوی ناوبری پایینی ثابت و کاملاً اصلاح شده */
+        .bottom-nav { 
+            background: rgba(6, 7, 12, 0.98); 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0; 
+            backdrop-filter: blur(10px); 
+            position: fixed; 
+            bottom: 0; 
+            left: 0;
+            width: 100%; 
+            z-index: 1000; 
+        }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: #4a5361; font-size: 11px; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--primary); text-shadow: 0 0 10px rgba(0,240,255,0.3); }
         .nav-icon { font-size: 22px; margin-bottom: 4px; }
@@ -205,7 +219,7 @@
     </div>
 
     <div id="page-crash" class="page-content">
-        <div class="section-title">🚀 موشک مگابایتی( )</div>
+        <div class="section-title">🚀 موشک مگابایتی</div>
         <div class="crash-container">
             <div class="crash-chart" id="crashChartArea">
                 <canvas id="crashCanvas"></canvas>
@@ -401,26 +415,20 @@
             }
         }
 
-        // 🛡️ الگوریتم فوق امنیتی هش کلاینت (غیرقابل جعل توسط کاربر)
         function generateSecureToken(userId, planName) {
-            const secretSalt = "AMIN_SECRET_KEY_9821_QNET"; // کلید مخفی ادمین
+            const secretSalt = "AMIN_SECRET_KEY_9821_QNET"; 
             const dataString = `${userId}:${planName}:${secretSalt}`;
             
-            // یک تابع هش ساده اما بسیار محکم مبتنی بر الگوریتم چرخش بیت‌ها برای جلوگیری از جعل دستی چشمی
             let hash = 0;
             for (let i = 0; i < dataString.length; i++) {
                 let char = dataString.charCodeAt(i);
                 hash = ((hash << 5) - hash) + char;
                 hash |= 0; 
             }
-            // تبدیل هش تولید شده به یک فرمت متنی تمیز و هگزادسیمال ۱۲ کاراکتری
             const secureSignature = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-            
-            // خروجی نهایی توکن: ترکیب آیدی کاربر و امضای دیجیتال غیرقابل حدس
             return `QN-${userId}-${secureSignature}`;
         }
 
-        // تابع خرید کانفیگ از فروشگاه با پیام رسمی درخواستی
         function buyConfig(price, planName) {
             if (score >= price) {
                 score -= price;
@@ -428,14 +436,12 @@
                 saveGameToStorage();
                 syncWithTelegram();
                 
-                // دریافت آیدی تلگرام واقعی یا شبیه‌سازی آیدی تستر
                 const userId = (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) 
                                 ? window.Telegram.WebApp.initDataUnsafe.user.id 
-                                : "777888999"; // آیدی نمونه برای تست در مرورگر
+                                : "777888999"; 
                                 
                 const finalToken = generateSecureToken(userId, planName);
                 
-                // نمایش پیام دقیق و رسمی شما
                 alert(`خرید با موفقیت پکیج ${planName} انجام شد\n\nتوکن شما:\n${finalToken}\n\nبرای دریافت اطلاعات کانفیگ به پیوی ادمین مراجعه کنید\n@AminQuest`);
             } else {
                 alert(`⚠️ موجودی مگابایت شما کافی نیست!\nبرای خرید پکیج ${planName} نیاز به ${price.toLocaleString()} MB دارید.`);
