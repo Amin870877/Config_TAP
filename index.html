@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QTeam Config VIP Cyber</title>
+    <title>QTeam Config VIP Cyber Mega Invest</title>
     <style>
         :root {
             --primary: #00f0ff;
@@ -40,10 +40,10 @@
         body.light-theme .bottom-nav { background: rgba(255, 255, 255, 0.95); border-top: 1px solid #cbd5e1; }
         body.light-theme .nav-item { color: #64748b; }
         body.light-theme .nav-item.active { color: var(--secondary); text-shadow: none; font-weight: bold; }
-        body.light-theme .card-item, body.light-theme .upgrade-card, body.light-theme .crash-container, body.light-theme .footer-status {
+        body.light-theme .card-item, body.light-theme .upgrade-card, body.light-theme .crash-container, body.light-theme .footer-status, body.light-theme .invest-card {
             background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.03); color: #0f172a;
         }
-        body.light-theme .upgrade-title, body.light-theme .card-name { color: #0f172a; }
+        body.light-theme .upgrade-title, body.light-theme .card-name, body.light-theme .invest-title { color: #0f172a; }
         body.light-theme .crash-chart { background: #f8fafc; border: 1px solid #e2e8f0; }
         body.light-theme .crash-multiplier { color: #0f172a; text-shadow: none; }
         body.light-theme .crash-input { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; }
@@ -52,6 +52,9 @@
         body.light-theme .modal-content { background: #ffffff; border: 1px solid #cbd5e1; }
         body.light-theme .history-title { color: #475569; }
         body.light-theme .notcoin-score { color: #0f172a; text-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body.light-theme .profit-badge-main { background: rgba(112, 0, 255, 0.1); color: var(--secondary); }
+        body.light-theme .category-btn { background: #e2e8f0; color: #475569; }
+        body.light-theme .category-btn.active { background: var(--secondary); color: #fff; }
 
         /* Header & Settings Icon */
         .header { text-align: center; padding: 15px 15px 5px 15px; z-index: 10; position: relative; }
@@ -70,30 +73,21 @@
         .score-container { font-size: 26px; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px var(--primary); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .score-unit { font-size: 13px; color: var(--primary); text-shadow: none; font-weight: bold; }
 
-        /* Notcoin Style Big Score for Tap Page - Enlarged and Moved Down */
-        .notcoin-score-container {
-            text-align: center; 
-            margin-top: 45px; 
-            margin-bottom: -20px; 
-            z-index: 5; 
-            width: 100%;
-        }
+        /* Notcoin Style Big Score for Tap Page */
+        .notcoin-score-container { text-align: center; margin-top: 45px; margin-bottom: -10px; z-index: 5; width: 100%; }
         .notcoin-score {
-            font-size: 54px; 
-            font-weight: 900; 
-            color: #ffffff;
+            font-size: 54px; font-weight: 900; color: #ffffff;
             text-shadow: 0 0 25px rgba(0, 240, 255, 0.75), 0 0 50px rgba(112, 0, 255, 0.5);
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px;
-            font-family: Arial, Helvetica, sans-serif;
+            display: flex; align-items: center; justify-content: center; gap: 10px; font-family: Arial, sans-serif;
         }
-        .notcoin-unit {
-            font-size: 24px; 
-            color: var(--primary); 
-            font-weight: 800; 
-            text-shadow: none;
+        .notcoin-unit { font-size: 24px; color: var(--primary); font-weight: 800; text-shadow: none; }
+        
+        /* Profit per hour badge on Home Screen */
+        .profit-badge-main {
+            background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 5px 14px; border-radius: 50px; font-size: 13px; font-weight: bold;
+            color: var(--primary); display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 15px; margin-bottom: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .page-content { flex: 1; display: none; flex-direction: column; align-items: center; padding: 15px; overflow-y: auto; width: 100%; }
@@ -101,7 +95,7 @@
 
         /* 🎮 Tap Game Cyber Design */
         .game-space { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; position: relative; }
-        .cyber-reactor { position: relative; width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; }
+        .cyber-reactor { width: 230px; height: 230px; display: flex; align-items: center; justify-content: center; position: relative; }
         .reactor-ring-1 { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px dashed rgba(0, 240, 255, 0.4); animation: spin 15s linear infinite; }
         .reactor-ring-2 { position: absolute; width: 80%; height: 80%; border-radius: 50%; border: 3px solid rgba(112, 0, 255, 0.3); border-top-color: var(--primary); animation: spin-reverse 8s linear infinite; }
         .reactor-ring-3 { position: absolute; width: 115%; height: 115%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 0 40px rgba(0,240,255,0.1); animation: pulse-ring 2s ease-in-out infinite; }
@@ -111,7 +105,7 @@
         @keyframes pulse-ring { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.05); opacity: 1; } }
 
         .tap-circle-outer {
-            position: relative; z-index: 10; width: 170px; height: 170px;
+            position: relative; z-index: 10; width: 160px; height: 160px;
             background: linear-gradient(135deg, #0f1626 0%, #050a14 100%);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             box-shadow: inset 0 0 30px rgba(112, 0, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4); 
@@ -119,9 +113,7 @@
             transition: transform 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .tap-circle-outer:active { transform: scale(0.92); box-shadow: inset 0 0 50px rgba(0, 240, 255, 0.8), 0 0 15px rgba(0, 240, 255, 0.5); border-color: var(--primary); }
-        .tap-circle-inner { font-size: 70px; animation: floatRocket 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0,240,255,0.5)); }
-
-        @keyframes floatRocket { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+        .tap-circle-inner { font-size: 65px; animation: floatRocket 3s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(0,240,255,0.5)); }
 
         /* Energy Bar */
         .footer-status { width: 100%; max-width: 400px; padding: 0 15px; margin-bottom: 10px; background: rgba(0,0,0,0.3); border-radius: 15px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); }
@@ -139,10 +131,7 @@
             width: 100%; height: 230px; background: #020306; border-radius: 16px; position: relative; overflow: hidden; 
             border: 1px solid rgba(255,255,255,0.01); display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .crash-chart::before {
-            content: ''; position: absolute; width: 200%; height: 200%;
-            background-image: radial-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 0); background-size: 25px 25px;
-        }
+        .crash-chart::before { content: ''; position: absolute; width: 200%; height: 200%; background-image: radial-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 0); background-size: 25px 25px; }
         #crashCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .crash-multiplier { font-size: 52px; font-weight: 900; z-index: 10; text-shadow: 0 0 25px rgba(255,255,255,0.2); position: relative; }
         .crash-status-text { font-size: 13px; color: var(--warning); z-index: 10; margin-top: 5px; font-weight: bold; position: relative; }
@@ -158,7 +147,7 @@
         .btn-joined { background: #1e222e; color: #7f8c8d; cursor: not-allowed; }
         .btn-cashout { background: linear-gradient(135deg, var(--success) 0%, #00cc52 100%); color: #000; box-shadow: 0 0 25px rgba(0,255,102,0.5); animation: pulse 1.5s infinite; }
 
-        /* ⚡ Upgrades */
+        /* ⚡ Upgrades & 💼 Investment Categories Nav */
         .upgrade-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 18px; padding: 16px; display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 400px; margin-bottom: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
         .upgrade-info { display: flex; flex-direction: column; gap: 4px; }
         .upgrade-title { font-weight: bold; font-size: 15px; }
@@ -166,6 +155,22 @@
         .upgrade-lvl-badge { font-size: 11px; color: var(--primary); background: rgba(0, 240, 255, 0.1); padding: 2px 8px; border-radius: 6px; width: fit-content; margin-top: 4px; font-weight: bold; }
         .upgrade-btn { background: linear-gradient(135deg, #00f0ff 0%, #0077aa 100%); border: none; color: #000; padding: 10px 16px; border-radius: 10px; font-weight: bold; font-size: 13px; cursor: pointer; }
         .upgrade-btn:disabled { background: #222630; color: #555; cursor: not-allowed; }
+
+        /* Invest Layout & Advanced Tab Layout */
+        .category-nav { display: flex; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 15px; }
+        .category-btn { flex: 1; padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); color: #a0aec0; font-size: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .category-btn.active { background: linear-gradient(135deg, var(--secondary) 0%, #5200ba 100%); color: #fff; border-color: var(--primary); box-shadow: 0 4px 15px rgba(112,0,255,0.4); }
+
+        .invest-grid { width: 100%; max-width: 420px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 25px; }
+        .invest-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); position: relative; }
+        .invest-card.hidden { display: none !important; }
+        .invest-badge { position: absolute; top: 8px; left: 8px; font-size: 9px; background: rgba(112, 0, 255, 0.2); color: #c084fc; padding: 2px 6px; border-radius: 6px; font-weight: bold; }
+        .invest-icon { font-size: 28px; margin-top: 10px; }
+        .invest-title { font-weight: bold; font-size: 13px; margin-top: 2px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .invest-level-text { font-size: 12px; color: #e2e8f0; direction: ltr; text-align: right; font-weight: 500; }
+        .invest-profit-rate { font-size: 11px; color: var(--success); font-weight: bold; display: flex; align-items: center; gap: 2px; }
+        .invest-footer-btn { width: 100%; background: linear-gradient(135deg, #00f0ff 0%, #0055ff 100%); border: none; color: #000; padding: 8px; border-radius: 10px; font-weight: bold; font-size: 12px; cursor: pointer; margin-top: 4px; }
+        .invest-footer-btn:disabled { background: #222630; color: #555; cursor: not-allowed; }
 
         /* General Sections */
         .section-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; text-align: center; width: 100%; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
@@ -187,14 +192,10 @@
 
         /* Settings Modal */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 2000; display: none;
-            align-items: center; justify-content: center; backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);
         }
         .modal-content {
-            background: var(--bg-dark); border: 1px solid var(--primary);
-            border-radius: 20px; padding: 25px; width: 85%; max-width: 350px;
-            display: flex; flex-direction: column; gap: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            background: var(--bg-dark); border: 1px solid var(--primary); border-radius: 20px; padding: 25px; width: 85%; max-width: 350px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
         .modal-title { font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 5px; }
         .setting-row { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: bold; }
@@ -210,13 +211,14 @@
 
         /* Bottom Nav */
         .bottom-nav { background: rgba(6, 7, 12, 0.98); border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-around; padding: 12px 0; backdrop-filter: blur(10px); position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; transition: background 0.3s; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #4a5361; font-size: 11px; cursor: pointer; flex: 1; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #4a5361; font-size: 10px; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--primary); text-shadow: 0 0 10px rgba(0,240,255,0.3); }
-        .nav-icon { font-size: 22px; margin-bottom: 4px; }
+        .nav-icon { font-size: 20px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
+    <!-- Standard Header (Hidden on Tap Page) -->
     <div class="header" id="standardHeader" style="display: none;">
         <button class="settings-btn" onclick="openSettings()">⚙️</button>
         <div class="score-box-wrapper">
@@ -225,6 +227,7 @@
         </div>
     </div>
 
+    <!-- Independent Settings Button for Tap Page -->
     <button class="settings-btn" id="tapSettingsBtn" style="top: 25px;" onclick="openSettings()">⚙️</button>
 
     <div id="settingsModal" class="modal-overlay">
@@ -242,12 +245,21 @@
         </div>
     </div>
 
+    <!-- 🎮 Tap Game Page -->
     <div id="page-tap" class="page-content active">
+        <!-- Notcoin Style Big Score -->
         <div class="notcoin-score-container">
             <div class="notcoin-score">
                 <span class="globalScoreText">0</span>
                 <span class="notcoin-unit">MB</span>
             </div>
+        </div>
+        
+        <!-- Live Hourly Profit Badge -->
+        <div class="profit-badge-main">
+            <span>⏱️ سود ساعتی:</span>
+            <span id="globalProfitRateText">0</span>
+            <span>MB/h</span>
         </div>
         
         <div class="game-space">
@@ -266,6 +278,21 @@
         </div>
     </div>
 
+    <!-- 💼 Investment Page -->
+    <div id="page-invest" class="page-content">
+        <div class="section-title">💼 بازار هلدینگ و سرمایه‌گذاری تفکیکی</div>
+        
+        <!-- Category Navbar Tabs -->
+        <div class="category-nav">
+            <button class="category-btn active" id="tab-comp" onclick="filterInvestCategory('companies')">🏢 شرکت‌ها</button>
+            <button class="category-btn" id="tab-crypto" onclick="filterInvestCategory('crypto')">🪙 ارزها</button>
+            <button class="category-btn" id="tab-clubs" onclick="filterInvestCategory('clubs')">🏆 باشگاه‌ها</button>
+        </div>
+
+        <div class="invest-grid" id="investGridContainer"></div>
+    </div>
+
+    <!-- 🚀 Crash Game Page -->
     <div id="page-crash" class="page-content">
         <div class="section-title">🚀 موشک مگابایتی</div>
         <div class="crash-container">
@@ -286,6 +313,7 @@
         </div>
     </div>
 
+    <!-- ⚡ Upgrades Page -->
     <div id="page-upgrades" class="page-content">
         <div class="section-title">⚡ ارتقا سیستم و استخراج</div>
         <div class="upgrade-card">
@@ -306,11 +334,13 @@
         </div>
     </div>
 
+    <!-- 📋 Tasks Page -->
     <div id="page-tasks" class="page-content">
         <div class="section-title">📋 مأموریت‌های دریافت حجم</div>
         <div class="card-list" id="taskListContainer"></div>
     </div>
 
+    <!-- 🛒 Wallet/Shop Page -->
     <div id="page-wallet" class="page-content">
         <div class="section-title">🛒 فروشگاه سرورهای VIP کانفیگ QTeam</div>
         <div class="card-list" id="shopList">
@@ -333,8 +363,10 @@
         </div>
     </div>
 
+    <!-- Bottom Nav -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="switchPage('page-tap', this)"><div class="nav-icon">🎮</div><div>بازی تپ</div></div>
+        <div class="nav-item" onclick="switchPage('page-invest', this)"><div class="nav-icon">💼</div><div>سرمایه گذاری</div></div>
         <div class="nav-item" onclick="switchPage('page-crash', this)"><div class="nav-icon">🚀</div><div>موشک</div></div>
         <div class="nav-item" onclick="switchPage('page-upgrades', this)"><div class="nav-icon">⚡</div><div>ارتقا</div></div>
         <div class="nav-item" onclick="switchPage('page-tasks', this)"><div class="nav-icon">📋</div><div>مأموریت‌ها</div></div>
@@ -342,7 +374,7 @@
     </div>
 
     <script>
-        // --- Security & Database ---
+        // --- High-Grade Obfuscation Engine ---
         function encodeState(dataObj) {
             let jsonStr = JSON.stringify(dataObj);
             let scrambled = jsonStr.split('').map(c => String.fromCharCode(c.charCodeAt(0) + 3)).join('');
@@ -357,18 +389,44 @@
             } catch(e) { return null; }
         }
 
-        // --- Game Config (10 Levels) ---
         const MAX_LEVEL = 10;
         const tapCosts = [0, 1500, 4000, 10000, 25000, 50000, 100000, 200000, 400000, 800000, 1500000];
         const energyCosts = [0, 1000, 3000, 8000, 18000, 35000, 75000, 150000, 350000, 800000, 2000000];
         const energyCaps = [0, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6500, 8000, 10000, 12000];
 
-        // --- State Management ---
+        // --- All cards above 500,000 MB are fully removed ---
+        const initialCards = {
+            // Category: companies
+            c1: { id: 'c1', name: 'دفتر استارتاپ نوپا', category: 'companies', icon: '🏢', basePrice: 500, baseProfit: 15, level: 0 },
+            c2: { id: 'c2', name: 'کارگاه سخت‌افزار', category: 'companies', icon: '🛠️', basePrice: 2500, baseProfit: 110, level: 0 },
+            c3: { id: 'c3', name: 'شرکت محلی وب QNet', category: 'companies', icon: '🌐', basePrice: 10000, baseProfit: 550, level: 0 },
+            c4: { id: 'c4', name: 'آژانس مارکتینگ سایبر', category: 'companies', icon: '📈', basePrice: 35000, baseProfit: 2100, level: 0 },
+            c5: { id: 'c5', name: 'دیتا سنتر استانی', category: 'companies', icon: '🗄️', basePrice: 90000, baseProfit: 6300, level: 0 },
+            c6: { id: 'c6', name: 'کمپانی انیمیشن رندر', category: 'companies', icon: '🎬', basePrice: 220000, baseProfit: 17500, level: 0 },
+
+            // Category: crypto
+            cr1: { id: 'cr1', name: 'مگابایت توکن شیت', category: 'crypto', icon: '💾', basePrice: 700, baseProfit: 22, level: 0 },
+            cr2: { id: 'cr2', name: 'استخر استخراج خانگی', category: 'crypto', icon: '⛏️', basePrice: 3500, baseProfit: 160, level: 0 },
+            cr3: { id: 'cr3', name: 'پروژه دفی نوظهور', category: 'crypto', icon: '⛓️', basePrice: 14000, baseProfit: 820, level: 0 },
+            cr4: { id: 'cr4', name: 'ربات تریدر اتوماتیک', category: 'crypto', icon: '🤖', basePrice: 45000, baseProfit: 3100, level: 0 },
+            cr5: { id: 'cr5', name: 'صرافی غیرمتمرکز محلی', category: 'crypto', icon: '💱', basePrice: 110000, baseProfit: 8900, level: 0 },
+            cr6: { id: 'cr6', name: 'اتریوم نسل جدید', category: 'crypto', icon: '💎', basePrice: 280000, baseProfit: 24000, level: 0 },
+
+            // Category: clubs
+            cl1: { id: 'cl1', name: 'باشگاه گیم‌نت محله', category: 'clubs', icon: '🕹️', basePrice: 600, baseProfit: 18, level: 0 },
+            cl2: { id: 'cl2', name: 'تیم فوتبال ساحلی', category: 'clubs', icon: '🏖️', basePrice: 3000, baseProfit: 135, level: 0 },
+            cl3: { id: 'cl3', name: 'باشگاه بدنسازی هوشمند', category: 'clubs', icon: '🏋️', basePrice: 12000, baseProfit: 680, level: 0 },
+            cl4: { id: 'cl4', name: 'پرسپولیس دیجیتال', category: 'clubs', icon: '🦁', basePrice: 40000, baseProfit: 2600, level: 0 },
+            cl5: { id: 'cl5', name: 'استقلال متاورس', category: 'clubs', icon: '🌟', basePrice: 100000, baseProfit: 7500, level: 0 },
+            cl6: { id: 'cl6', name: 'تیم ملی اسپورت ریمیکس', category: 'clubs', icon: '🎮', basePrice: 250000, baseProfit: 21000, level: 0 }
+        };
+
         let defaultState = { 
-            score: 5000, energy: 1000, tapLevel: 1, energyLevel: 1,
+            score: 5000, energy: 1000, tapLevel: 1, energyLevel: 1, profitRate: 0,
             tasks: { 
                 taskQTeam: { id: 'taskQTeam', title: 'عضویت در کانال QTeam', url: 'https://t.me/QTeam', reward: 5000, status: 'pending', checkStartTime: null } 
             },
+            investCards: initialCards,
             purchases: [],
             settings: { theme: 'dark', vibrate: true },
             lastCheckTime: Date.now()
@@ -380,55 +438,92 @@
         let userState = parsedData ? { 
             ...defaultState, ...parsedData, 
             tasks: { ...defaultState.tasks, ...(parsedData.tasks || {}) },
+            investCards: { ...initialCards, ...(parsedData.investCards || {}) },
             purchases: parsedData.purchases || [],
             settings: { ...defaultState.settings, ...(parsedData.settings || {}) }
         } : defaultState;
 
-        // Migrating old task key to the new QTeam channel if needed
-        if (userState.tasks.taskAminTeam) {
-            userState.tasks.taskQTeam = {
-                id: 'taskQTeam',
-                title: 'عضویت در کانال QTeam',
-                url: 'https://t.me/QTeam',
-                reward: 5000,
-                status: userState.tasks.taskAminTeam.status,
-                checkStartTime: userState.tasks.taskAminTeam.checkStartTime
-            };
-            delete userState.tasks.taskAminTeam;
+        // Clean up data in case old system left higher balance cards in save states
+        for (let cardId in userState.investCards) {
+            if (!initialCards[cardId]) {
+                delete userState.investCards[cardId];
+            }
         }
+
+        let currentSelectedCategory = 'companies';
 
         function saveGameToStorage() { 
             userState.lastCheckTime = Date.now();
             localStorage.setItem('qnet_secure_database', encodeState(userState)); 
         }
 
-        // --- Passive Offline Energy Calculation ---
+        // --- Calculate Earnings Velocity ---
+        function calculateTotalProfitRate() {
+            let total = 0;
+            for(let key in userState.investCards) {
+                let card = userState.investCards[key];
+                if(card.level > 0) {
+                    total += Math.floor(card.baseProfit * card.level * 1.45);
+                }
+            }
+            userState.profitRate = total;
+        }
+        calculateTotalProfitRate();
+
+        // --- Sync Real-time Live & Offline Mining ---
+        let lastMiningTick = Date.now();
+        setInterval(() => {
+            if(userState.profitRate > 0) {
+                let now = Date.now();
+                let deltaSec = (now - lastMiningTick) / 1000;
+                let earned = (userState.profitRate / 3600) * deltaSec;
+                userState.score += earned;
+                lastMiningTick = now;
+                updateScoreVisualsOnly();
+            } else {
+                lastMiningTick = Date.now();
+            }
+        }, 1000);
+
+        // Advanced Time Anchor for Offline Passive Collection
         if (userState.lastCheckTime) {
             let currentTime = Date.now();
             let elapsedMs = currentTime - userState.lastCheckTime;
+            
+            // Energy Refill Calculation
             let energyToRegen = Math.floor(elapsedMs / 600); 
             if (energyToRegen > 0) {
                 let maxE = energyCaps[userState.energyLevel];
                 userState.energy = Math.min(maxE, userState.energy + energyToRegen);
             }
+            
+            // Passive Hourly Mining Injection Protocol (Offline Profit)
+            if(userState.profitRate > 0 && elapsedMs > 2000) {
+                let hoursPassed = elapsedMs / (1000 * 60 * 60);
+                let offlineEarned = userState.profitRate * hoursPassed;
+                userState.score += offlineEarned;
+                
+                // Show offline earnings notification after UI renders
+                setTimeout(() => {
+                    alert(` خوش آمدید! در غیاب شما، سیستم استخراج موفق به جمع‌آوری ${Math.floor(offlineEarned).toLocaleString()} MB سود ساعتی شد.`);
+                }, 600);
+            }
         }
         saveGameToStorage();
 
-        // --- Haptics (Vibration) ---
         function triggerVibrate(pattern) {
             if(userState.settings.vibrate && navigator.vibrate) {
                 try { navigator.vibrate(pattern); } catch(e) {}
             }
         }
 
-        // --- Settings Modal & Logic ---
+        // --- Preferences Theme Switch Configuration ---
         const themeToggle = document.getElementById('themeToggle');
         const vibrateToggle = document.getElementById('vibrateToggle');
 
         function applySettingsVisuals() {
             if(userState.settings.theme === 'light') document.body.classList.add('light-theme');
             else document.body.classList.remove('light-theme');
-            
             themeToggle.checked = (userState.settings.theme === 'light');
             vibrateToggle.checked = userState.settings.vibrate;
         }
@@ -442,15 +537,18 @@
             applySettingsVisuals(); saveGameToStorage();
         }
 
-        // Crash Game Variables
         let gameState = 'betting'; let currentMultiplier = 1.00; let crashPoint = 0;
         let userBetState = 'none'; let userBetAmount = 0; let flightPoints = [];
 
-        // UI Core Updates
-        function updateUI() {
+        function updateScoreVisualsOnly() {
             document.querySelectorAll('.globalScoreText').forEach(el => {
-                el.innerText = userState.score.toLocaleString();
+                el.innerText = Math.floor(userState.score).toLocaleString();
             });
+        }
+
+        function updateUI() {
+            updateScoreVisualsOnly();
+            document.getElementById('globalProfitRateText').innerText = userState.profitRate.toLocaleString();
 
             let currentMaxEnergy = energyCaps[userState.energyLevel];
             document.getElementById('energy').innerText = Math.floor(userState.energy);
@@ -483,18 +581,18 @@
             }
 
             if(pageId === 'page-crash') { setTimeout(resizeCanvas, 50); }
+            if(pageId === 'page-invest') { renderInvestCards(); }
             if(pageId === 'page-tasks') { renderTasks(); }
             if(pageId === 'page-wallet') { renderPurchases(); }
         }
 
-        // --- Tap Game ---
+        // --- Core Click Handlers ---
         document.getElementById('tapBtn').addEventListener('touchstart', (e) => {
             e.preventDefault();
             let earnPerTap = userState.tapLevel;
             if (userState.energy >= earnPerTap) {
                 userState.score += earnPerTap; userState.energy -= earnPerTap; 
-                triggerVibrate(15); 
-                updateUI();
+                triggerVibrate(15); updateUI();
                 
                 const touch = e.touches[0];
                 const text = document.createElement('div'); text.className = 'floating-text'; text.innerText = `+${earnPerTap}`;
@@ -510,20 +608,89 @@
             if (userState.energy < maxE) { userState.energy = Math.min(maxE, userState.energy + 1); updateUI(); saveGameToStorage(); }
         }, 600);
 
-        // --- Upgrades ---
+        // --- Strategic Category Filters & Grid Generator ---
+        function filterInvestCategory(categoryName) {
+            currentSelectedCategory = categoryName;
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            if(categoryName === 'companies') document.getElementById('tab-comp').classList.add('active');
+            if(categoryName === 'crypto') document.getElementById('tab-crypto').classList.add('active');
+            if(categoryName === 'clubs') document.getElementById('tab-clubs').classList.add('active');
+            renderInvestCards();
+        }
+
+        function getCardStats(card) {
+            let currentLvl = card.level || 0;
+            let nextPrice = Math.floor(card.basePrice * Math.pow(1.95, currentLvl));
+            let currentProfit = currentLvl > 0 ? Math.floor(card.baseProfit * currentLvl * 1.45) : 0;
+            let nextProfitBonus = Math.floor(card.baseProfit * (currentLvl + 1) * 1.45) - currentProfit;
+            return { nextPrice, nextProfitBonus, currentProfit };
+        }
+
+        function renderInvestCards() {
+            const container = document.getElementById('investGridContainer');
+            container.innerHTML = '';
+            
+            let catTranslate = { companies: '🏢 شرکت‌ها', crypto: '🪙 ارزها', clubs: '🏆 باشگاه‌ها' };
+            let sortedCards = Object.values(userState.investCards).sort((a, b) => a.basePrice - b.basePrice);
+
+            sortedCards.forEach(card => {
+                let stats = getCardStats(card);
+                let isMax = card.level >= 5;
+                
+                let isHidden = card.category !== currentSelectedCategory ? 'hidden' : '';
+                let btnText = isMax ? 'MAX' : `${stats.nextPrice.toLocaleString()} MB`;
+                let disabledAttr = isMax ? 'disabled' : '';
+                
+                container.innerHTML += `
+                    <div class="invest-card ${isHidden}">
+                        <span class="invest-badge">${catTranslate[card.category]}</span>
+                        <div class="invest-icon">${card.icon}</div>
+                        <div class="invest-title">${card.name}</div>
+                        <div class="invest-level-text">Level: ${card.level}/5</div>
+                        <div class="invest-profit-rate">
+                            <span>🚀 سود: </span>
+                            <span>+${isMax ? stats.currentProfit.toLocaleString() : stats.nextProfitBonus.toLocaleString()} MB/h</span>
+                        </div>
+                        <button class="invest-footer-btn" ${disabledAttr} onclick="buyInvestCard('${card.id}')">${btnText}</button>
+                    </div>
+                `;
+            });
+        }
+
+        function buyInvestCard(cardId) {
+            let card = userState.investCards[cardId];
+            if(!card || card.level >= 5) return;
+            
+            let stats = getCardStats(card);
+            if(userState.score >= stats.nextPrice) {
+                userState.score -= stats.nextPrice;
+                card.level = (card.level || 0) + 1;
+                
+                calculateTotalProfitRate();
+                updateUI();
+                renderInvestCards();
+                saveGameToStorage();
+                triggerVibrate(30);
+                alert(`کارت «${card.name}» ارتقا یافت و سطح سوددهی افزایش پیدا کرد.`);
+            } else {
+                alert(`موجودی شما کافی نیست! قیمت ارتقای این کارت ${stats.nextPrice.toLocaleString()} MB است.`);
+            }
+        }
+
+        // --- Upgrades Level Logic ---
         function buyUpgrade(type) {
             if(type === 'tap' && userState.tapLevel < MAX_LEVEL) {
                 let cost = tapCosts[userState.tapLevel];
-                if(userState.score >= cost) { userState.score -= cost; userState.tapLevel++; alert('ارتقا با موفقیت انجام شد!'); updateUI(); saveGameToStorage(); } 
+                if(userState.score >= cost) { userState.score -= cost; userState.tapLevel++; alert('قدرت تاچ ارتقا یافت!'); updateUI(); saveGameToStorage(); } 
                 else alert('موجودی کافی نیست!');
             } else if(type === 'energy' && userState.energyLevel < MAX_LEVEL) {
                 let cost = energyCosts[userState.energyLevel];
-                if(userState.score >= cost) { userState.score -= cost; userState.energyLevel++; userState.energy = energyCaps[userState.energyLevel]; alert('مخزن انرژی ارتقا یافت!'); updateUI(); saveGameToStorage(); } 
+                if(userState.score >= cost) { userState.score -= cost; userState.energyLevel++; userState.energy = energyCaps[userState.energyLevel]; alert('ظرفیت مخزن افزایش یافت!'); updateUI(); saveGameToStorage(); } 
                 else alert('موجودی کافی نیست!');
             }
         }
 
-        // --- Smart Tasks (10 min check) ---
+        // --- Smart Missions Verification Engine ---
         function renderTasks() {
             const container = document.getElementById('taskListContainer'); container.innerHTML = '';
             for (const key in userState.tasks) {
@@ -571,7 +738,7 @@
             if(changed) { updateUI(); renderTasks(); saveGameToStorage(); }
         }, 1000);
 
-        // --- Shop & Config Generation ---
+        // --- Store Transactions Protocols ---
         function generateSecureToken(userId, planName) {
             let hash = 0; let str = `${userId}:${planName}:QNET_SECURE`;
             for (let i = 0; i < str.length; i++) { hash = ((hash << 5) - hash) + str.charCodeAt(i); hash |= 0; }
@@ -581,7 +748,6 @@
         function renderPurchases() {
             const list = document.getElementById('purchasedList'); list.innerHTML = '';
             if (userState.purchases.length === 0) { list.innerHTML = '<div style="text-align:center; color:#888; font-size:12px;">هنوز خریدی انجام نشده.</div>'; return; }
-            
             userState.purchases.slice().reverse().forEach(p => {
                 list.innerHTML += `
                     <div class="card-item" style="flex-direction:column; align-items:flex-start; gap:6px; border: 1px dashed var(--primary); background:rgba(0,240,255,0.02);">
@@ -603,7 +769,7 @@
             } else { alert(`موجودی کافی نیست! نیاز به ${price.toLocaleString()} MB دارید.`); }
         }
 
-        // --- Crash Game Logic ---
+        // --- Flight Mechanics Graphing Logic ---
         const canvas = document.getElementById('crashCanvas'); const ctx = canvas.getContext('2d');
         const crashBtn = document.getElementById('crashBtn'); const betInput = document.getElementById('betAmount');
         function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; }
@@ -676,7 +842,6 @@
                 flightPoints.push({ x: cx, y: cy }); drawChartLine();
 
                 if (userBetState === 'in_game') document.getElementById('liveProfitVal').innerText = Math.floor(userBetAmount * currentMultiplier).toLocaleString() + ' MB';
-                
                 if (currentMultiplier >= crashPoint) triggerCrash(); 
                 else requestAnimationFrame(tick);
             }
@@ -688,13 +853,10 @@
             document.getElementById('crashMult').style.color = 'var(--danger)'; document.getElementById('crashStatusText').innerText = 'منفجر شد!'; 
             document.getElementById('liveProfitBox').style.display = 'none';
             document.getElementById('crashChartArea').style.border = '1px solid var(--danger)';
-            
             triggerVibrate([100, 50, 100, 50, 200]); 
             
-            if (userBetState === 'in_game') { /* Over */ }
             userBetState = 'none'; crashBtn.innerText = 'انفجار!'; crashBtn.className = 'crash-btn btn-joined'; crashBtn.disabled = true;
             saveGameToStorage();
-            
             setTimeout(() => { document.getElementById('crashChartArea').style.border = '1px solid var(--border-glow)'; initCrashCycle(); }, 3500);
         }
 
@@ -715,8 +877,11 @@
             }
         });
 
-        // Init App
-        applySettingsVisuals(); updateUI(); renderTasks(); renderPurchases(); initCrashCycle();
+        // Auto Save Before Window Unloads/Closes to preserve accurate offline mining timestamps
+        window.addEventListener('beforeunload', saveGameToStorage);
+
+        // Runtime Activation Call
+        applySettingsVisuals(); updateUI(); renderInvestCards(); initCrashCycle();
         if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); }
     </script>
 </body>
