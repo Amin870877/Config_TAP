@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Q-Net VIP Ultimate Cyber</title>
+    <title>QTeam Config VIP Cyber</title>
     <style>
         :root {
             --primary: #00f0ff;
@@ -51,23 +51,50 @@
         body.light-theme .floating-text { color: #000; text-shadow: 0 0 5px #fff; }
         body.light-theme .modal-content { background: #ffffff; border: 1px solid #cbd5e1; }
         body.light-theme .history-title { color: #475569; }
+        body.light-theme .notcoin-score { color: #0f172a; text-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
         /* Header & Settings Icon */
         .header { text-align: center; padding: 15px 15px 5px 15px; z-index: 10; position: relative; }
         .settings-btn { 
             position: absolute; left: 15px; top: 20px; font-size: 24px; 
             background: none; border: none; color: var(--text-color); cursor: pointer;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); z-index: 15;
         }
         .score-box-wrapper {
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.04) 0%, rgba(112, 0, 255, 0.04) 100%);
-            border: 1px solid var(--border-glow); border-radius: 20px; padding: 10px 25px;
+            border: 1px solid var(--border-glow); border-radius: 20px; padding: 8px 20px;
             display: inline-block; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.05);
             backdrop-filter: blur(5px);
         }
         .score-title { color: #8fa0af; font-size: 11px; margin-bottom: 3px; font-weight: bold; }
-        .score-container { font-size: 36px; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px var(--primary); display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .score-unit { font-size: 15px; color: var(--primary); text-shadow: none; font-weight: bold; }
+        .score-container { font-size: 26px; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px var(--primary); display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .score-unit { font-size: 13px; color: var(--primary); text-shadow: none; font-weight: bold; }
+
+        /* Notcoin Style Big Score for Tap Page - Enlarged and Moved Down */
+        .notcoin-score-container {
+            text-align: center; 
+            margin-top: 45px; 
+            margin-bottom: -20px; 
+            z-index: 5; 
+            width: 100%;
+        }
+        .notcoin-score {
+            font-size: 54px; 
+            font-weight: 900; 
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(0, 240, 255, 0.75), 0 0 50px rgba(112, 0, 255, 0.5);
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .notcoin-unit {
+            font-size: 24px; 
+            color: var(--primary); 
+            font-weight: 800; 
+            text-shadow: none;
+        }
 
         .page-content { flex: 1; display: none; flex-direction: column; align-items: center; padding: 15px; overflow-y: auto; width: 100%; }
         .page-content.active { display: flex; }
@@ -125,7 +152,7 @@
         .live-profit-val { font-size: 22px; font-weight: 800; color: var(--success); text-shadow: 0 0 10px rgba(0,255,102,0.2); }
 
         .crash-controls { width: 100%; display: flex; flex-direction: column; gap: 8px; }
-        .crash-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; font-size: 16px; text-align: center; font-weight: bold; }
+        .crash-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; font-size: 16px; text-align: center; font-weight: bold; color: #ffffff; }
         .crash-btn { width: 100%; border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; color: #fff; cursor: pointer; transition: all 0.2s; }
         .btn-join { background: linear-gradient(135deg, var(--secondary) 0%, #4900a3 100%); box-shadow: 0 4px 15px rgba(112,0,255,0.3); }
         .btn-joined { background: #1e222e; color: #7f8c8d; cursor: not-allowed; }
@@ -190,13 +217,15 @@
 </head>
 <body>
 
-    <div class="header">
+    <div class="header" id="standardHeader" style="display: none;">
         <button class="settings-btn" onclick="openSettings()">⚙️</button>
         <div class="score-box-wrapper">
-            <div class="score-title">موجودی حجم حساب شما</div>
-            <div class="score-container"><span id="globalScore">0</span><span class="score-unit">MB</span></div>
+            <div class="score-title">موجودی حجم حساب</div>
+            <div class="score-container"><span class="globalScoreText">0</span><span class="score-unit">MB</span></div>
         </div>
     </div>
+
+    <button class="settings-btn" id="tapSettingsBtn" style="top: 25px;" onclick="openSettings()">⚙️</button>
 
     <div id="settingsModal" class="modal-overlay">
         <div class="modal-content">
@@ -214,6 +243,13 @@
     </div>
 
     <div id="page-tap" class="page-content active">
+        <div class="notcoin-score-container">
+            <div class="notcoin-score">
+                <span class="globalScoreText">0</span>
+                <span class="notcoin-unit">MB</span>
+            </div>
+        </div>
+        
         <div class="game-space">
             <div class="cyber-reactor">
                 <div class="reactor-ring-3"></div>
@@ -276,7 +312,7 @@
     </div>
 
     <div id="page-wallet" class="page-content">
-        <div class="section-title">🛒 فروشگاه سرورهای VIP</div>
+        <div class="section-title">🛒 فروشگاه سرورهای VIP کانفیگ QTeam</div>
         <div class="card-list" id="shopList">
             <div class="card-item" style="border: 1px solid rgba(0,240,255,0.2); background: rgba(0,240,255,0.01);">
                 <div><div class="card-name" style="color: var(--primary);">🎁 سرور ۵ گیگابایت (۱ ماهه)</div><div class="card-reward">۵۰,۰۰۰ MB</div></div>
@@ -330,15 +366,17 @@
         // --- State Management ---
         let defaultState = { 
             score: 5000, energy: 1000, tapLevel: 1, energyLevel: 1,
-            tasks: { taskAminTeam: { id: 'taskAminTeam', title: 'عضویت در کانال امین تیم', url: 'https://t.me/AminQTeam', reward: 5000, status: 'pending', checkStartTime: null } },
+            tasks: { 
+                taskQTeam: { id: 'taskQTeam', title: 'عضویت در کانال QTeam', url: 'https://t.me/QTeam', reward: 5000, status: 'pending', checkStartTime: null } 
+            },
             purchases: [],
-            settings: { theme: 'dark', vibrate: true }
+            settings: { theme: 'dark', vibrate: true },
+            lastCheckTime: Date.now()
         };
 
         let savedData = localStorage.getItem('qnet_secure_database');
         let parsedData = savedData ? decodeState(savedData) : null;
         
-        // Merge State Safely
         let userState = parsedData ? { 
             ...defaultState, ...parsedData, 
             tasks: { ...defaultState.tasks, ...(parsedData.tasks || {}) },
@@ -346,7 +384,35 @@
             settings: { ...defaultState.settings, ...(parsedData.settings || {}) }
         } : defaultState;
 
-        function saveGameToStorage() { localStorage.setItem('qnet_secure_database', encodeState(userState)); }
+        // Migrating old task key to the new QTeam channel if needed
+        if (userState.tasks.taskAminTeam) {
+            userState.tasks.taskQTeam = {
+                id: 'taskQTeam',
+                title: 'عضویت در کانال QTeam',
+                url: 'https://t.me/QTeam',
+                reward: 5000,
+                status: userState.tasks.taskAminTeam.status,
+                checkStartTime: userState.tasks.taskAminTeam.checkStartTime
+            };
+            delete userState.tasks.taskAminTeam;
+        }
+
+        function saveGameToStorage() { 
+            userState.lastCheckTime = Date.now();
+            localStorage.setItem('qnet_secure_database', encodeState(userState)); 
+        }
+
+        // --- Passive Offline Energy Calculation ---
+        if (userState.lastCheckTime) {
+            let currentTime = Date.now();
+            let elapsedMs = currentTime - userState.lastCheckTime;
+            let energyToRegen = Math.floor(elapsedMs / 600); 
+            if (energyToRegen > 0) {
+                let maxE = energyCaps[userState.energyLevel];
+                userState.energy = Math.min(maxE, userState.energy + energyToRegen);
+            }
+        }
+        saveGameToStorage();
 
         // --- Haptics (Vibration) ---
         function triggerVibrate(pattern) {
@@ -382,7 +448,10 @@
 
         // UI Core Updates
         function updateUI() {
-            document.getElementById('globalScore').innerText = userState.score.toLocaleString();
+            document.querySelectorAll('.globalScoreText').forEach(el => {
+                el.innerText = userState.score.toLocaleString();
+            });
+
             let currentMaxEnergy = energyCaps[userState.energyLevel];
             document.getElementById('energy').innerText = Math.floor(userState.energy);
             document.getElementById('maxEnergyLabel').innerText = currentMaxEnergy;
@@ -404,6 +473,15 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             navElement.classList.add('active');
+
+            if(pageId === 'page-tap') {
+                document.getElementById('standardHeader').style.display = 'none';
+                document.getElementById('tapSettingsBtn').style.display = 'block';
+            } else {
+                document.getElementById('standardHeader').style.display = 'block';
+                document.getElementById('tapSettingsBtn').style.display = 'none';
+            }
+
             if(pageId === 'page-crash') { setTimeout(resizeCanvas, 50); }
             if(pageId === 'page-tasks') { renderTasks(); }
             if(pageId === 'page-wallet') { renderPurchases(); }
@@ -415,7 +493,7 @@
             let earnPerTap = userState.tapLevel;
             if (userState.energy >= earnPerTap) {
                 userState.score += earnPerTap; userState.energy -= earnPerTap; 
-                triggerVibrate(15); // Vibrate on tap
+                triggerVibrate(15); 
                 updateUI();
                 
                 const touch = e.touches[0];
@@ -493,7 +571,6 @@
             if(changed) { updateUI(); renderTasks(); saveGameToStorage(); }
         }, 1000);
 
-
         // --- Shop & Config Generation ---
         function generateSecureToken(userId, planName) {
             let hash = 0; let str = `${userId}:${planName}:QNET_SECURE`;
@@ -525,7 +602,6 @@
                 alert(`خرید موفق!\nتوکن شما: ${finalToken}\n\nجهت دریافت کانفیگ به ادمین پیام دهید.`);
             } else { alert(`موجودی کافی نیست! نیاز به ${price.toLocaleString()} MB دارید.`); }
         }
-
 
         // --- Crash Game Logic ---
         const canvas = document.getElementById('crashCanvas'); const ctx = canvas.getContext('2d');
@@ -613,9 +689,9 @@
             document.getElementById('liveProfitBox').style.display = 'none';
             document.getElementById('crashChartArea').style.border = '1px solid var(--danger)';
             
-            triggerVibrate([100, 50, 100, 50, 200]); // Heavy Vibrate on crash
+            triggerVibrate([100, 50, 100, 50, 200]); 
             
-            if (userBetState === 'in_game') { /* باخت */ }
+            if (userBetState === 'in_game') { /* Over */ }
             userBetState = 'none'; crashBtn.innerText = 'انفجار!'; crashBtn.className = 'crash-btn btn-joined'; crashBtn.disabled = true;
             saveGameToStorage();
             
